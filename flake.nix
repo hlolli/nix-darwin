@@ -2,6 +2,10 @@
   # WARNING this is very much still experimental.
   description = "A collection of darwin modules";
 
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs";
+  };
+
   outputs = { self, nixpkgs }: {
     lib = {
       # TODO handle multiple architectures.
