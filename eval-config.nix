@@ -1,4 +1,4 @@
-{ lib, system ? builtins.currentSystem or "x86_64-darwin" }:
+{ lib, currentSystem ? builtins.currentSystem }:
 
 { modules
 , inputs
@@ -18,7 +18,7 @@ let
     _file = ./eval-config.nix;
     config = {
       _module.args.pkgs = import inputs.nixpkgs config.nixpkgs;
-      nixpkgs.system = system;
+      nixpkgs.system = currentSystem;
     };
   };
 

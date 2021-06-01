@@ -9,12 +9,12 @@
   outputs = { self, nixpkgs }: {
     lib = {
       # TODO handle multiple architectures.
-      evalConfig = import ./eval-config.nix { inherit (nixpkgs) lib; };
-
-      darwinSystem = { modules, inputs ? {}, ... }@args: self.lib.evalConfig (args // {
-        inputs = { inherit nixpkgs; darwin = self; } // inputs;
-        modules = modules ++ [ self.darwinModules.flakeOverrides ];
-      });
+      evalConfig = import ./eval-config.nix { inherit (nixpkgs) lib; currentSystem = "aarch64-darwin"; };
+      darwinSystem = { modules, inputs ? {}, ... }@args:
+        self.lib.evalConfig (args // {
+          inputs = { inherit nixpkgs; darwin = self; } // inputs;
+          modules = modules ++ [ self.darwinModules.flakeOverrides ];
+        });
     };
 
     darwinModules.flakeOverrides = ./modules/system/flake-overrides.nix;
